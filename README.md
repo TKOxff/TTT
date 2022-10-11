@@ -1,6 +1,6 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Ttt
+# <img src="public/icons/icon_48.png" width="45" align="left"> Toss To Translator
 
-My Chrome Extension
+Chrome Extension
 
 ## Features
 
