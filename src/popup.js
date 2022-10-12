@@ -11,8 +11,8 @@ console.log('LangCodes:', LangCodes);
 createForm().catch(console.error);
 
 async function createForm() {
-  const savedLang = await chrome.storage.sync.get('toLang');
-  const selectedLang = savedLang.selectLang;
+  const saved = await chrome.storage.sync.get('toLang');
+  const toLang = saved.toLang;
 
   let select = document.createElement('select');
   select.name = 'languages';
@@ -25,8 +25,8 @@ async function createForm() {
     let option = document.createElement('option');
     option.value = key;
     option.text = value;
-    console.log(key, selectedLang);
-    if (key == selectedLang) {
+    console.log(key, toLang);
+    if (key == toLang) {
       option.selected = true;
       console.log('selected one:', option);
     }
@@ -34,7 +34,7 @@ async function createForm() {
   }
 
   let label = document.createElement('label');
-  label.innerHTML = 'Translate to ';
+  label.innerHTML = 'To ';
   label.htmlFor = 'languages';
 
   let form = document.getElementById('form');

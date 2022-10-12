@@ -10,7 +10,7 @@ createForm().catch(console.error);
 
 async function createForm() {
   const savedLang = await chrome.storage.sync.get('fromLang');
-  const selectedLang = savedLang.selectLang;
+  const selectedLang = savedLang.fromLang;
 
   let select = document.createElement('select');
   select.name = 'lang-from';
