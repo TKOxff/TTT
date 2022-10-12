@@ -20,27 +20,27 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 // Open a new search tab when the user clicks a context menu
 // 오른쪽 메뉴팝업을 클릭하면, 새 탭을 열어 선택한 문자열을 번역 사이트에 넘긴다.
-chrome.contextMenus.onClicked.addListener((item, tab) => {
-  chrome.storage.sync.get('toLang').then((data) => {
-    // console.log(data);
-    console.log('item.menuItemId', item.menuItemId);
-    console.log('item.selectionText', item.selectionText);
+chrome.contextMenus.onClicked.addListener(clickTossMemu);
 
-    // const toLangCode = 'ko';
-    const toLangCode = data.toLang;
-    console.log('toLangCode:', toLangCode);
+async function clickTossMemu(item, tab) {
+  console.log(item);
+  console.log(tab);
 
-    const fromLang = 'ja';
-    console.log('fromLang:', fromLang);
+  const saved = await chrome.storage.sync.get('fromLang');
+  const fromCode = saved.fromLang;
+  console.log(saved, fromCode);
 
-    const sentence = encodeURI(item.selectionText);
-    console.log('sentence', sentence);
+  const savedTo = await chrome.storage.sync.get('toLang');
+  const toCode = savedTo.toLang;
+  console.log(savedTo, toCode);
 
-    let url = new URL(
-      `https://papago.naver.com/?sk=${fromLang}&tk=${toLangCode}&hn=0&st=${sentence}`
-    );
-    console.log('url:', url);
+  const sentence = encodeURI(item.selectionText);
+  console.log('item.selectionText', item.selectionText);
 
-    chrome.tabs.create({ url: url.href, index: tab.index + 1 });
-  });
-});
+  let url = new URL(
+    `https://papago.naver.com/?sk=${fromCode}&tk=${toCode}&hn=0&st=${sentence}`
+  );
+  console.log('url:', url);
+
+  chrome.tabs.create({ url: url.href, index: tab.index + 1 });
+}
