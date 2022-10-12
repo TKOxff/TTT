@@ -29,6 +29,17 @@ body {
   padding: 20px;
 }
 
+.app-body {
+  display: flex;
+  /* width: 100%; */
+}
+
+.app-body div {
+  /* display: inline; */
+  padding-right: 5px;
+  /* background-color: red; */
+}
+
 .title {
   font-size: 18px;
   font-weight: 600;
