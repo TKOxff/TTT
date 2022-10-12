@@ -2,111 +2,49 @@
 
 import './popup.css';
 
-(function () {
-  // We will make use of Storage API to get and store `count` value
-  // More information on Storage API can we found at
-  // https://developer.chrome.com/extensions/storage
+import { LangCodes } from './langcodes';
+import './popup.css';
 
-  // To get storage access, we have to mention it in `permissions` property of manifest.json file
-  // More information on Permissions can we found at
-  // https://developer.chrome.com/extensions/declare_permissions
-  const counterStorage = {
-    get: (cb) => {
-      chrome.storage.sync.get(['count'], (result) => {
-        cb(result.count);
-      });
-    },
-    set: (value, cb) => {
-      chrome.storage.sync.set(
-        {
-          count: value,
-        },
-        () => {
-          cb();
-        }
-      );
-    },
-  };
+console.log('LangCodes:', LangCodes);
 
-  function setupCounter(initialValue = 0) {
-    document.getElementById('counter').innerHTML = initialValue;
+// 폼을 동적으로 생성
+createForm().catch(console.error);
 
-    document.getElementById('incrementBtn').addEventListener('click', () => {
-      updateCounter({
-        type: 'INCREMENT',
-      });
-    });
+async function createForm() {
+  const savedLang = await chrome.storage.sync.get('toLang');
+  const selectedLang = savedLang.selectLang;
 
-    document.getElementById('decrementBtn').addEventListener('click', () => {
-      updateCounter({
-        type: 'DECREMENT',
-      });
-    });
-  }
+  let select = document.createElement('select');
+  select.name = 'languages';
+  select.id = 'languages';
+  select.addEventListener('change', (event) => {
+    handleSelect(event).catch(console.error);
+  });
 
-  function updateCounter({ type }) {
-    counterStorage.get((count) => {
-      let newCount;
-
-      if (type === 'INCREMENT') {
-        newCount = count + 1;
-      } else if (type === 'DECREMENT') {
-        newCount = count - 1;
-      } else {
-        newCount = count;
-      }
-
-      counterStorage.set(newCount, () => {
-        document.getElementById('counter').innerHTML = newCount;
-
-        // Communicate with content script of
-        // active tab by sending a message
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          const tab = tabs[0];
-
-          chrome.tabs.sendMessage(
-            tab.id,
-            {
-              type: 'COUNT',
-              payload: {
-                count: newCount,
-              },
-            },
-            (response) => {
-              console.log('Current count value passed to contentScript file');
-            }
-          );
-        });
-      });
-    });
-  }
-
-  function restoreCounter() {
-    // Restore count value
-    counterStorage.get((count) => {
-      if (typeof count === 'undefined') {
-        // Set counter value as 0
-        counterStorage.set(0, () => {
-          setupCounter(0);
-        });
-      } else {
-        setupCounter(count);
-      }
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', restoreCounter);
-
-  // Communicate with background file by sending a message
-  chrome.runtime.sendMessage(
-    {
-      type: 'GREETINGS',
-      payload: {
-        message: 'Hello, my name is Pop. I am from Popup.',
-      },
-    },
-    (response) => {
-      console.log(response.message);
+  for (const [key, value] of Object.entries(LangCodes)) {
+    let option = document.createElement('option');
+    option.value = key;
+    option.text = value;
+    console.log(key, selectedLang);
+    if (key == selectedLang) {
+      option.selected = true;
+      console.log('selected one:', option);
     }
-  );
-})();
+    select.appendChild(option);
+  }
+
+  let label = document.createElement('label');
+  label.innerHTML = 'Translate to ';
+  label.htmlFor = 'languages';
+
+  let form = document.getElementById('form');
+  form.appendChild(label).append(select);
+}
+
+async function handleSelect(event) {
+  const selectEl = event.target;
+  const toLang = selectEl.value;
+  console.log('toLang', toLang);
+
+  chrome.storage.sync.set({ toLang: toLang });
+}
