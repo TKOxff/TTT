@@ -1,3 +1,4 @@
+.PHONY: build
 
-release:
-	zip -r ./artefact/ttt-rel.zip ./build
+build:
+	./scripts/build.sh
