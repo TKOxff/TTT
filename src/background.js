@@ -2,12 +2,21 @@
 
 import { FrancCodeToLangCode } from './langcodes';
 
+// 디버그용: popup.html 페이지 탭을 미리 열어 둔다.
+// chrome.runtime.onInstalled.addListener(async () => {
+//   let url = chrome.runtime.getURL('popup.html');
+//   console.log(`onInstalled url ${url}`);
+
+//   let tab = await chrome.tabs.create({ url });
+//   console.log(`onInstalled tab ${tab.id}`);
+// });
+
 // 우클릭 팝업메뉴에 메뉴를 추가한다.
 // Add a listener to create the initial context menu items,
 // context menu items only need to be created at runtime.onInstalled
 //
 chrome.runtime.onInstalled.addListener(async () => {
-  console.log(['selection']);
+  console.log('onInstalled selection', ['selection']);
 
   // 우클릭 메뉴 아이템 추가
   chrome.contextMenus.create({
@@ -23,8 +32,8 @@ chrome.runtime.onInstalled.addListener(async () => {
 chrome.contextMenus.onClicked.addListener(clickTossMemu);
 
 async function clickTossMemu(item, tab) {
-  console.log(item);
-  console.log(tab);
+  // console.log(item);
+  // console.log(tab);
 
   const saved = await chrome.storage.sync.get('fromLang');
   const fromCode = saved.fromLang;
@@ -33,6 +42,14 @@ async function clickTossMemu(item, tab) {
   const savedTo = await chrome.storage.sync.get('toLang');
   const toCode = savedTo.toLang;
   console.log(savedTo, toCode);
+
+  if (fromCode == 'xx' || toCode == 'xx') {
+    chrome.tabs.create({
+      url: 'javascript:document.write("<h1>Toss To Translator</h1><h2>You need to choose [From, To] options first!</h2><h3>[From, To] options are in the TTT popup window.</h3>")',
+      index: tab.index + 1,
+    });
+    return;
+  }
 
   const sentence = encodeURI(item.selectionText);
   console.log('item.selectionText', item.selectionText);
