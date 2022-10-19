@@ -15,8 +15,8 @@ html {
 }
 
 body {
-  width: 350px;
-  height: 300px;
+  width: 300px;
+  height: 250px;
 }
 
 .app {
@@ -47,7 +47,19 @@ body {
 }
 
 .subtitle {
-  font-size: 12px;
+  display: flex;
+  font-size: 14px;
+  padding: 16px;
+}
+
+/* Translator Name */
+.subtitle span {
+  padding: 0 5px;
+}
+
+/* Translator Icon */
+.subtitle img {
+  justify-content: center;
 }
 
 code {
@@ -96,8 +108,8 @@ code {
 }
 
 .divider {
-  margin: 30px auto 25px;
-  width: 50px;
+  margin: 5px auto 5px;
+  width: 80px;
   border: 0.5px dashed #000;
   opacity: 0.1;
 }

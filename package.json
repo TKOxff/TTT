@@ -1,7 +1,7 @@
 {
   "name": "ttt",
-  "version": "0.1.0",
-  "description": "My Chrome Extension",
+  "version": "0.9.0",
+  "description": "TTT desc in package.json",
   "private": true,
   "scripts": {
     "watch": "webpack --mode=development --watch --config config/webpack.config.js",
