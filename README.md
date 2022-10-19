@@ -1,11 +1,16 @@
 # <img src="public/icons/icon_48.png" width="45" align="left"> Toss To Translator
 
-Chrome Extension
+Toss the selected message to the Translator Web Site.
+
+Supported Site are 
+ 
+ - Papago 
+ - Google Translate
 
 ## Features
 
-- Feature 1
-- Feature 2
+- Toss the selected text to the Translator Web Site.
+- Auto detected the language op selected text
 
 ## Install
 

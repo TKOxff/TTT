@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "TTT in manifest",
-  "version": "0.1.0",
-  "description": "Toss To Translator",
+  "name": "TTT",
+  "version": "0.9.0",
+  "description": "Toss To Translator. Toss selected text to the Translator Web Site on the New Tab",
   "icons": {
     "16": "icons/TTT-16.png",
     "32": "icons/TTT-32.png",
@@ -14,7 +14,7 @@
     "type": "module"
   },
   "action": {
-    "default_title": "TTT in the manifest",
+    "default_title": "TTT",
     "default_popup": "popup.html"
   },
   "permissions": ["storage", "contextMenus", "tabs"],
