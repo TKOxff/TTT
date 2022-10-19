@@ -5,10 +5,10 @@ import { FrancCodeToLangCode } from './langcodes';
 // 디버그용: popup.html 페이지 탭을 미리 열어 둔다.
 // chrome.runtime.onInstalled.addListener(async () => {
 //   let url = chrome.runtime.getURL('popup.html');
-//   console.log(`onInstalled url ${url}`);
+//   console.debug(`onInstalled url ${url}`);
 
 //   let tab = await chrome.tabs.create({ url });
-//   console.log(`onInstalled tab ${tab.id}`);
+//   console.debug(`onInstalled tab ${tab.id}`);
 // });
 
 // 우클릭 팝업메뉴에 메뉴를 추가한다.
@@ -16,7 +16,7 @@ import { FrancCodeToLangCode } from './langcodes';
 // context menu items only need to be created at runtime.onInstalled
 //
 chrome.runtime.onInstalled.addListener(async () => {
-  console.log('onInstalled selection', ['selection']);
+  console.debug('onInstalled selection', ['selection']);
 
   // 우클릭 메뉴 아이템 추가
   chrome.contextMenus.create({
@@ -37,11 +37,11 @@ async function clickTossMemu(item, tab) {
 
   const saved = await chrome.storage.sync.get('fromLang');
   const fromCode = saved.fromLang;
-  console.log(saved, fromCode);
+  console.debug(saved, fromCode);
 
   const savedTo = await chrome.storage.sync.get('toLang');
   const toCode = savedTo.toLang;
-  console.log(savedTo, toCode);
+  console.debug(savedTo, toCode);
 
   if (fromCode == 'xx' || toCode == 'xx') {
     chrome.tabs.create({
@@ -52,12 +52,12 @@ async function clickTossMemu(item, tab) {
   }
 
   const sentence = encodeURI(item.selectionText);
-  console.log('item.selectionText', item.selectionText);
+  console.debug('item.selectionText', item.selectionText);
 
   let url = new URL(
     `https://papago.naver.com/?sk=${fromCode}&tk=${toCode}&hn=0&st=${sentence}`
   );
-  console.log('url:', url);
+  console.debug('url:', url);
 
   chrome.tabs.create({ url: url.href, index: tab.index + 1 });
 }

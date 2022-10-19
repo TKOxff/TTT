@@ -3,7 +3,7 @@
 import './popup.css';
 import { LangCodes } from './langcodes';
 
-console.log('LangCodes:', LangCodes);
+console.debug('LangCodes:', LangCodes);
 
 // 폼을 동적으로 생성
 createForm().catch(console.error);
@@ -23,10 +23,11 @@ async function createForm() {
     let option = document.createElement('option');
     option.value = key;
     option.text = value;
-    console.log(key, selectedLang);
+    console.debug(key, selectedLang);
+
     if (key == selectedLang) {
       option.selected = true;
-      console.log('selected one:', option);
+      console.debug('selected one:', option);
     }
     select.appendChild(option);
   }
@@ -43,7 +44,7 @@ async function handleSelect(event) {
   const selectEl = event.target;
 
   const fromLang = selectEl.value;
-  console.log('fromLang', fromLang);
+  console.debug('fromLang', fromLang);
 
   chrome.storage.sync.set({ fromLang: fromLang });
 }
