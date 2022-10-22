@@ -2,14 +2,18 @@
 
 import { FrancCodeToLangCode } from './langcodes';
 
-// 디버그용: popup.html 페이지 탭을 미리 열어 둔다.
-// chrome.runtime.onInstalled.addListener(async () => {
-//   let url = chrome.runtime.getURL('popup.html');
-//   console.debug(`onInstalled url ${url}`);
+console.log('ENV:', process.env.NODE_ENV);
 
-//   let tab = await chrome.tabs.create({ url });
-//   console.debug(`onInstalled tab ${tab.id}`);
-// });
+if (process.env.NODE_ENV == 'development') {
+  // 디버그용: popup.html 페이지 탭을 미리 열어 둔다.
+  chrome.runtime.onInstalled.addListener(async () => {
+    let url = chrome.runtime.getURL('popup.html');
+    console.debug(`onInstalled url ${url}`);
+
+    let tab = await chrome.tabs.create({ url });
+    console.debug(`onInstalled tab ${tab.id}`);
+  });
+}
 
 // 우클릭 팝업메뉴에 메뉴를 추가한다.
 // Add a listener to create the initial context menu items,
