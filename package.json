@@ -1,6 +1,6 @@
 {
   "name": "ttt",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "TTT desc in package.json",
   "private": true,
   "scripts": {

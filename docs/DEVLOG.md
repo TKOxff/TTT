@@ -2,8 +2,10 @@
 
 ## TODO
 
+- [x] Auto detection
 - [x] Rename artefact -> artifact
 - [x] Add date info to release file
+
 
 ## Google Web Store
 
