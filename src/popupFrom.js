@@ -21,9 +21,16 @@ async function createForm() {
 
   for (const [key, value] of Object.entries(LangCodes)) {
     let option = document.createElement('option');
-    option.value = key;
-    option.text = value;
-    console.debug(key, selectedLang);
+
+    if (key == 'xx') {
+      option.value = 'AD';
+      option.text = 'Auto Detect';
+    } else {
+      option.value = key;
+      option.text = value;
+    }
+
+    // console.debug(key, selectedLang);
 
     if (key == selectedLang) {
       option.selected = true;

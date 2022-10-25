@@ -16,6 +16,16 @@ Supported Site are
 
 [**Chrome** extension]() <!-- TODO: Add chrome extension link inside parenthesis -->
 
+
+## Dependency
+
+### franc
+
+Detect the language of text.
+
+https://github.com/wooorm/franc
+
+
 ## Contribution
 
 Suggestions and pull requests are welcomed!.
