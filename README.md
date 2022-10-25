@@ -25,6 +25,15 @@ Detect the language of text.
 
 https://github.com/wooorm/franc
 
+### jq
+
+Parsing version from .json file.
+
+```
+brew install jq
+```
+
+https://stedolan.github.io/jq/
 
 ## Contribution
 
