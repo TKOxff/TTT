@@ -56,7 +56,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // 2번째 우클릭에 반영되는 문제가 있다.. 때문에
     // popip.js 쪽에서 마우스업 타이밍에 미리 보내는 식으로 대응;
     chrome.contextMenus.update(contextMenuId, {
-      title: 'Toss To Translator' + ` [${request.fromCode}-${toCode}]`,
+      title: 'Toss To Translator' + ` [${request.autoFromCode}-${toCode}]`,
     });
   } else {
     sendResponse({});
