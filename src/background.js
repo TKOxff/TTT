@@ -5,16 +5,16 @@ import { FrancCodeToLangCode } from './langcodes';
 
 console.debug('ENV:', process.env.NODE_ENV);
 
-if (process.env.NODE_ENV == 'development') {
-  // 디버그용: popup.html 페이지 탭을 미리 열어 둔다.
-  chrome.runtime.onInstalled.addListener(async () => {
-    let url = chrome.runtime.getURL('popup.html');
-    console.debug(`onInstalled url ${url}`);
+// if (process.env.NODE_ENV == 'development') {
+//   // 디버그용: popup.html 페이지 탭을 미리 열어 둔다.
+//   chrome.runtime.onInstalled.addListener(async () => {
+//     let url = chrome.runtime.getURL('popup.html');
+//     console.debug(`onInstalled url ${url}`);
 
-    let tab = await chrome.tabs.create({ url });
-    console.debug(`onInstalled tab ${tab.id}`);
-  });
-}
+//     let tab = await chrome.tabs.create({ url });
+//     console.debug(`onInstalled tab ${tab.id}`);
+//   });
+// }
 
 const contextMenuId = 'Toss-To-Translator';
 let toCode = '';
