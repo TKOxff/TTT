@@ -3,7 +3,7 @@
 import { franc, francAll } from 'franc';
 import { FrancCodeToLangCode } from './langcodes';
 
-console.log('ENV:', process.env.NODE_ENV);
+console.debug('ENV:', process.env.NODE_ENV);
 
 if (process.env.NODE_ENV == 'development') {
   // 디버그용: popup.html 페이지 탭을 미리 열어 둔다.
@@ -18,6 +18,11 @@ if (process.env.NODE_ENV == 'development') {
 
 const contextMenuId = 'Toss-To-Translator';
 let toCode = '';
+let fromCode = '';
+
+function getMenuTitle(from, to) {
+  return `Toss To Translator [ ${from} → ${to} ]`;
+}
 
 // 우클릭 팝업메뉴에 메뉴를 추가한다.
 // Add a listener to create the initial context menu items,
@@ -31,19 +36,25 @@ chrome.runtime.onInstalled.addListener(async () => {
   console.debug('to', savedTo, toCode);
 
   const saved = await chrome.storage.sync.get('fromLang');
-  const fromCode = saved.fromLang;
+  fromCode = saved.fromLang;
   console.debug('from', saved, fromCode);
 
   if (fromCode == undefined) {
     // default is 'Auto Detect'
-    chrome.storage.sync.set({ fromLang: 'AD' });
+    chrome.storage.sync.set({ fromLang: 'auto' });
+    fromCode = 'auto';
   }
   console.log('selection', ['selection']);
+
+  // let menuTitle = 'Toss To Translator';
+  // if (fromCode == 'auto') {
+  //   menuTitle += ' [auto]';
+  // }
 
   // 우클릭 메뉴 아이템 추가
   const menuId = chrome.contextMenus.create({
     id: contextMenuId,
-    title: 'Toss To Translator',
+    title: getMenuTitle(fromCode, toCode),
     type: 'normal',
     contexts: ['selection'],
   });
@@ -51,13 +62,18 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.message == 'updateContextMenu') {
-    // update 후 바로 컨텐스트 메뉴가 없데이트 되지 않고
-    // 2번째 우클릭에 반영되는 문제가 있다.. 때문에
-    // popip.js 쪽에서 마우스업 타이밍에 미리 보내는 식으로 대응;
+  console.log('onMessage', request, ' current:', fromCode, toCode);
+
+  if (request.message == 'changeToLang') {
     chrome.contextMenus.update(contextMenuId, {
-      title: 'Toss To Translator' + ` [${request.autoFromCode}-${toCode}]`,
+      title: getMenuTitle(fromCode, request.toCode),
     });
+    toCode = request.toCode;
+  } else if (request.message == 'changeFromLang') {
+    chrome.contextMenus.update(contextMenuId, {
+      title: getMenuTitle(request.fromCode, toCode),
+    });
+    fromCode = request.fromCode;
   } else {
     sendResponse({});
   }
@@ -69,14 +85,14 @@ chrome.contextMenus.onClicked.addListener(clickTossMemu);
 
 async function clickTossMemu(item, tab) {
   const saved = await chrome.storage.sync.get('fromLang');
-  let fromCode = saved.fromLang;
+  fromCode = saved.fromLang;
   console.debug('from', saved, fromCode);
 
   const savedTo = await chrome.storage.sync.get('toLang');
   const toCode = savedTo.toLang;
   console.debug('to', savedTo, toCode);
 
-  if (toCode == 'xx' || toCode == undefined) {
+  if (toCode == 'none' || toCode == undefined) {
     chrome.tabs.create({
       url: 'javascript:document.write("<h1>Toss To Translator</h1><h2>You need to choose [To] options first!</h2><h3>[To] options are in the TTT popup window.</h3>")',
       index: tab.index + 1,
@@ -88,7 +104,7 @@ async function clickTossMemu(item, tab) {
   console.log('item.selectionText', item.selectionText);
 
   // TODO: 두번 판정하고 있다, 한번으로~
-  if (fromCode == 'AD') {
+  if (fromCode == 'auto') {
     const francDetectLang = franc(item.selectionText, {
       minLength: 3,
       ignore: ['por', 'ekk'],

@@ -25,8 +25,8 @@ async function createForm() {
   for (const [key, value] of Object.entries(LangCodes)) {
     let option = document.createElement('option');
 
-    if (key == 'xx') {
-      option.value = 'AD';
+    if (key == 'none') {
+      option.value = 'auto';
       option.text = 'Auto Detect';
     } else {
       option.value = key;
@@ -57,33 +57,9 @@ async function handleSelect(event) {
   console.debug('formCode', userFromCode);
 
   chrome.storage.sync.set({ fromLang: userFromCode });
-}
-
-async function onMouseUp(event) {
-  var selectedText = window.getSelection().toString();
-  console.debug('selectedText:', selectedText);
-
-  if (selectedText.length < 1) {
-    console.debug('selectedText is too short');
-    return;
-  }
-
-  // 정확히 판정하려면 단어가 아닌 가능한 긴 문장으로 대응해야 한다.
-  // minLengh를 안 걸면 일본어 판독이 안 되네?
-  const francDetectLang = franc(selectedText, {
-    minLength: 2,
-    ignore: ['por', 'ekk'],
-  });
-  const autoFromCode = FrancCodeToLangCode[francDetectLang];
-  console.debug('autoFromCode:', autoFromCode);
-  console.debug('userFromCode:', userFromCode);
 
   chrome.runtime.sendMessage({
-    message: 'updateContextMenu',
-    autoFromCode: autoFromCode,
-    userFromCode: userFromCode,
+    message: 'changeFromLang',
+    fromCode: userFromCode,
   });
 }
-
-// 'mouseup' timing is proper to get selected text
-document.addEventListener('mouseup', onMouseUp, false);

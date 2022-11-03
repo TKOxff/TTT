@@ -2,7 +2,7 @@
 // https://www.w3schools.com/tags/ref_language_codes.asp
 //
 export const LangCodes = {
-  xx: '-',
+  none: '-',
   ko: 'Korean',
   ja: 'Japanese',
   en: 'English',

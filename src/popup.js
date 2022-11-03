@@ -46,4 +46,9 @@ async function handleSelect(event) {
   console.debug('toLang', toLang);
 
   chrome.storage.sync.set({ toLang: toLang });
+
+  chrome.runtime.sendMessage({
+    message: 'changeToLang',
+    toCode: toLang,
+  });
 }
