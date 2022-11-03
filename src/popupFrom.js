@@ -4,9 +4,19 @@ import './popup.css';
 import { LangCodes } from './langcodes';
 import { FrancCodeToLangCode } from './langcodes';
 import { franc, francAll } from 'franc';
-
+//
+// This popupFrom.js is only available in the popup.html.
+//
 console.debug('LangCodes:', LangCodes);
 let userFromCode = null;
+
+async function loadFromCode() {
+  const saved = await chrome.storage.sync.get('fromLang');
+  userFromCode = saved.fromLang;
+  console.debug('loadFromCode userFromCode:', userFromCode, saved);
+}
+
+loadFromCode();
 
 // 폼을 동적으로 생성
 createForm().catch(console.error);
