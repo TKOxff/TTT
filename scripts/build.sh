@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # jq install required
-VERSION=$(jq -r .version package.json)
+VERSION=$(jq -r .version ./public/manifest.json)
 # echo $VERSION
 DATE=$(date +%H%M)
 FILENAME=ttt-v$VERSION-r$DATE
