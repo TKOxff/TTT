@@ -16,3 +16,12 @@
 
 https://stackoverflow.com/a/13145761
 https://stackoverflow.com/a/18803575
+
+
+## Tips
+
+### background.js 콘솔로그 확인하기 
+
+Accessing console and devtools of extension's background.js
+
+https://stackoverflow.com/a/10258029/12697629
