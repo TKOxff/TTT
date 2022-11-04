@@ -16,6 +16,25 @@ Supported Site are
 
 [**Chrome** extension]() <!-- TODO: Add chrome extension link inside parenthesis -->
 
+
+## Dependency
+
+### franc
+
+Detect the language of text.
+
+https://github.com/wooorm/franc
+
+### jq
+
+Parsing version from .json file.
+
+```
+brew install jq
+```
+
+https://stedolan.github.io/jq/
+
 ## Contribution
 
 Suggestions and pull requests are welcomed!.

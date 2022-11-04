@@ -1,9 +1,7 @@
 'use strict';
 
 import './popup.css';
-
 import { LangCodes } from './langcodes';
-import './popup.css';
 
 console.debug('LangCodes:', LangCodes);
 
@@ -25,7 +23,7 @@ async function createForm() {
     let option = document.createElement('option');
     option.value = key;
     option.text = value;
-    console.debug(key, toLang);
+    // console.debug(key, toLang);
 
     if (key == toLang) {
       option.selected = true;
@@ -48,4 +46,9 @@ async function handleSelect(event) {
   console.debug('toLang', toLang);
 
   chrome.storage.sync.set({ toLang: toLang });
+
+  chrome.runtime.sendMessage({
+    message: 'changeToLang',
+    toCode: toLang,
+  });
 }
