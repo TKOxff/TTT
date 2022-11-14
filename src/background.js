@@ -100,8 +100,11 @@ async function clickTossMemu(item, tab) {
     return;
   }
 
-  const sentence = encodeURI(item.selectionText);
-  console.log('item.selectionText', item.selectionText);
+  console.debug('item.selectionText', item.selectionText);
+
+  // & ampersand is not encoded properly unless to replace with regexp
+  const sentence = encodeURIComponent(item.selectionText.replace(/&/g, '%amp'));
+  console.debug('sentence', sentence);
 
   // TODO: 두번 판정하고 있다, 한번으로~
   if (fromCode == 'auto') {
