@@ -21,7 +21,7 @@ let toCode = '';
 let fromCode = '';
 
 function getMenuTitle(from, to) {
-  return `Toss text To Papago [ ${from} → ${to} ]`;
+  return `Toss To Papago [ ${from} → ${to} ]`;
 }
 
 // 우클릭 팝업메뉴에 메뉴를 추가한다.
