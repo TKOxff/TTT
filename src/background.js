@@ -16,12 +16,12 @@ console.debug('ENV:', process.env.NODE_ENV);
 //   });
 // }
 
-const contextMenuId = 'Toss-To-Translator';
+const contextMenuId = 'Toss-To-Papago';
 let toCode = '';
 let fromCode = '';
 
 function getMenuTitle(from, to) {
-  return `Toss To Translator [ ${from} → ${to} ]`;
+  return `Toss text To Papago [ ${from} → ${to} ]`;
 }
 
 // 우클릭 팝업메뉴에 메뉴를 추가한다.
@@ -44,12 +44,7 @@ chrome.runtime.onInstalled.addListener(async () => {
     chrome.storage.sync.set({ fromLang: 'auto' });
     fromCode = 'auto';
   }
-  console.log('selection', ['selection']);
-
-  // let menuTitle = 'Toss To Translator';
-  // if (fromCode == 'auto') {
-  //   menuTitle += ' [auto]';
-  // }
+  console.debug('selection', ['selection']);
 
   // 우클릭 메뉴 아이템 추가
   const menuId = chrome.contextMenus.create({
@@ -62,7 +57,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log('onMessage', request, ' current:', fromCode, toCode);
+  // console.debug('onMessage', request, ' current:', fromCode, toCode);
 
   if (request.message == 'changeToLang') {
     chrome.contextMenus.update(contextMenuId, {
