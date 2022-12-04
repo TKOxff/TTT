@@ -2,6 +2,9 @@
 
 ## TODO
 
+- [ ] Support muliti languages.
+  https://developer.chrome.com/docs/webstore/i18n/
+
 - [x] Auto detection
 - [x] Rename artefact -> artifact
 - [x] Add date info to release file
