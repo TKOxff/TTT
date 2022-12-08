@@ -5,6 +5,7 @@
 
 # production
 /build
+/artifact
 
 # misc
 .DS_Store

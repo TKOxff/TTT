@@ -1,5 +1,10 @@
 # CHANGELOG
 
+
+## 1.1.0
+
+Change title to "Toss To Papago"
+
 ## 1.0.1
 
 Bugfix
