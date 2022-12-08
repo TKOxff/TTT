@@ -2,6 +2,12 @@
 
 ## TODO
 
+- [ ] 대상언어의 자동탐지 실패시 대응
+  - 자동 입력
+    - 마지막으로 성공한 번역 셋팅을 자동입력
+    - 수동으로 선택한 번역을 자동입력
+  - 수동으로 선택하는 번역 패턴을 제공
+
 - [ ] Support muliti languages.
   https://developer.chrome.com/docs/webstore/i18n/
 
