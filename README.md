@@ -1,16 +1,11 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Toss To Translator
+# <img src="public/icons/icon_48.png" width="45" align="left"> Toss To Papago
 
-Toss the selected message to the Translator Web Site.
-
-Supported Site are 
- 
- - Papago 
- - Google Translate
+Toss the selected message to the Papago that translator web site.
 
 ## Features
 
-- Toss the selected text to the Translator Web Site.
-- Auto detected the language op selected text
+- Toss the selected text to the Papago that translator web site.
+- Auto detected the language of selected text.
 
 ## Install
 
