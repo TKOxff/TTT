@@ -1,6 +1,6 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Toss To Papago
+# Toss To Papago <img src="public/icons/icon_48.png" width="45" align="left">
 
-Toss the selected message to the Papago that translator web site.
+Toss the selected text to the Papago that translator web site.
 
 ## Features
 
@@ -9,7 +9,7 @@ Toss the selected message to the Papago that translator web site.
 
 ## Install
 
-[**Chrome** extension]() <!-- TODO: Add chrome extension link inside parenthesis -->
+[**Chrome** extension](https://chrome.google.com/webstore/detail/toss-to-papago/mogococfigmacggnaonciboalpiooiln)
 
 
 ## Dependency
