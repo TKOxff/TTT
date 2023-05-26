@@ -17,5 +17,6 @@
     "default_title": "Toss To Papago",
     "default_popup": "popup.html"
   },
-  "permissions": ["storage", "contextMenus"]
+  "permissions": ["storage", "contextMenus"],
+  "default_locale": "en"
 }

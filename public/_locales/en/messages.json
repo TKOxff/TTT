@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "TTP",
+    "description": "Toss To Papago"
+  },
+  "appDesc": {
+    "message": "Toss selected text to Papago the AI Translator",
+    "description": "Easily open a new tab of the translation site Papago with selected text."
+  }
+}
